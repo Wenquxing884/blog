@@ -34,8 +34,10 @@ blog/
 │   └── phoebe-2048/        菲比啾比 2048（单文件游戏）
 │       ├── index.html      游戏本体，HTML/CSS/JS 全内联
 │       ├── assets/phoebe.jpg
+│       ├── assets/sfx-merge.wav  合并音效（8-bit 版，随数值升调）
+│       ├── assets/sfx-win.wav    达成 2048 的音效
 │       ├── preview.png     原尺寸截图 900×1040
-│       └── preview-small.webp  首页卡片用的缩略图 480×555，15KB
+│       └── preview-small.webp  480×555，15KB
 ├── preview/                整页截图，改版前后对比用，不参与部署
 └── tools/
     ├── set-domain.ps1      一键换域名
@@ -184,6 +186,23 @@ document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
 导航在 420px 以下会自动收紧：间距和字号变小，头像隐藏（「关于」链接还在，不影响导航），这样四个链接也塞得下 360px 宽的屏幕。
 
 游戏页不继承博客的 CSS，样式自带，所以主题切换、进度条那些不会出现在游戏里——这是故意的，游戏要保持自己的画面。
+
+### 2048 的音效与方块
+
+音效是采样，不是合成振荡器：
+
+- `assets/sfx-merge.wav` —— 合并时播放，`playbackRate` 跟着合并后的数值升调（4 约 1.06 倍速，2048 约 1.65 倍速），越合越尖
+- `assets/sfx-win.wav` —— 达成 2048 时播放，260 ms 后再叠一层 1.26 倍速的弱音
+
+两个文件都是本项目自己合成的（TTS + 变调 + 啾声 + 混响），没有采样任何现成音频。生成脚本在项目根的 `media/make_audio.py`。
+
+方块视觉：每块有顶部高光和内圈描边（`::before` / `::after`），128 以上右上角出现蓝色十字发卡，2048 和更高数值的紫色块带呼吸光圈（`glowPulse`）。
+
+**调色板预览**：地址后加 `?demo` 会直接摆一桌 2 到 4096 的方块，改配色时用这个看效果，不用真打到 2048。
+
+```text
+/games/phoebe-2048/?demo
+```
 
 ## 每页都有的东西
 
