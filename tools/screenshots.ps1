@@ -69,10 +69,12 @@ try {
   if (-not $ready) { throw "临时服务器没起来（端口 $Port 可能被占用），换 -Port 再试。" }
 
   $n = 0
+  # 临时 profile 放在项目目录下的 _tmp，不往 C:\Users\...\Temp 里扔
+  $work = Join-Path (Split-Path $root -Parent) '_tmp\shots'
   foreach ($s in $shots) {
     $n++
     $out = Join-Path $root ('preview\' + $s.file)
-    $profile = Join-Path $env:TEMP ("dsh-shot-$PID-$n")
+    $profile = Join-Path $work ("p$n")
     $profiles += $profile
     $args = @(
       '--headless=new', '--disable-gpu', '--no-first-run', '--hide-scrollbars',
@@ -92,4 +94,11 @@ try {
 finally {
   if ($server -and -not $server.HasExited) { Stop-Process -Id $server.Id -Force -ErrorAction SilentlyContinue }
   foreach ($p in $profiles) { Remove-Item -LiteralPath $p -Recurse -Force -ErrorAction SilentlyContinue }
+  # 收掉 _tmp\shots（空目录也删）
+  $shotsDir = Join-Path (Split-Path $root -Parent) '_tmp\shots'
+  if (Test-Path $shotsDir) { Remove-Item -LiteralPath $shotsDir -Recurse -Force -ErrorAction SilentlyContinue }
+  $tmpRoot = Join-Path (Split-Path $root -Parent) '_tmp'
+  if ((Test-Path $tmpRoot) -and -not (Get-ChildItem $tmpRoot -Force -ErrorAction SilentlyContinue)) {
+    Remove-Item -LiteralPath $tmpRoot -Force -ErrorAction SilentlyContinue
+  }
 }
