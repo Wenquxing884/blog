@@ -196,7 +196,7 @@ document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
 
 素材来源：`media/audio/菲比啾比_爱给网_aigei_com.mp4`（爱给网下载，3.55 秒，1080×1080 带画面）。用 ffmpeg 抽出音轨后，按包络切成两个音效，脚本是 `media/make_sfx_from_ref.py`。
 
-> 之前那版是自己用 TTS + 合成器做的（`media/make_audio.py`），听起来电音味重，已经弃用，文件还留在 `media/audio/feibi-jiubi*.wav` 备查。
+> 最早那版是自己用 TTS + 合成器做的，电音味太重，已弃用并删掉，只保留现在这版实录音频。
 
 试听页：`media/audition.html`（在 `media/` 目录起个 http 服务就能听，里面有几个候选截取段）。
 
