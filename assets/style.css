@@ -765,6 +765,54 @@ footer {
 .prose h2 .anchor:hover,
 .prose h3 .anchor:hover { color: var(--accent); background: none; }
 
+/* ===========================================================
+   小游戏卡片
+   =========================================================== */
+.game-card {
+  display: flex;
+  gap: 22px;
+  align-items: flex-start;
+  padding: 18px;
+  background: var(--card);
+  border: 1.5px solid var(--line-strong);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+.game-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lift);
+}
+.game-thumb {
+  flex: none;
+  width: 168px;
+  height: 168px;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--line-strong);
+  background: var(--paper-2);
+}
+.game-body { min-width: 0; padding-top: 2px; }
+.game-body .card-meta { margin-bottom: 8px; }
+.game-body h3 {
+  font-family: var(--font-serif);
+  font-size: 21px;
+  line-height: 1.45;
+  font-weight: 600;
+  margin: 0 0 8px;
+  transition: color .2s ease;
+}
+.game-card:hover h3 { color: var(--accent-deep); }
+.game-body p { margin: 0; color: var(--ink-soft); font-size: 15.2px; }
+.game-body .tags { margin-top: 14px; }
+
+@media (max-width: 640px) {
+  .game-card { flex-direction: column; gap: 14px; padding: 16px; }
+  .game-thumb { width: 100%; height: 190px; }
+}
+
 /* 打印：只留正文 */
 @media print {
   .nav, footer, .progress, .to-top, .copy-btn, .skip-link, .back, .article-foot, .hero-actions {

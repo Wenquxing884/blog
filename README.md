@@ -30,6 +30,12 @@ blog/
 │   │   └── og-cover.png    社交分享预览图 1200×630
 │   ├── style.css           全部样式（明暗双主题 + 打印样式）
 │   └── main.js             主题切换 / 进度条 / 回到顶部 / 搜索 / 代码复制 / 标题锚点
+├── games/
+│   └── phoebe-2048/        菲比啾比 2048（单文件游戏）
+│       ├── index.html      游戏本体，HTML/CSS/JS 全内联
+│       ├── assets/phoebe.jpg
+│       ├── preview.png     原尺寸截图 900×1040
+│       └── preview-small.webp  首页卡片用的缩略图 480×555，15KB
 ├── preview/                整页截图，改版前后对比用，不参与部署
 └── tools/
     ├── set-domain.ps1      一键换域名
@@ -160,6 +166,21 @@ document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
 | 分隔线 | `<hr>` | 虚线 |
 
 代码块的复制按钮和标题锚点都是 `main.js` 运行时加的，正文里不用写任何额外标记。
+
+## 加一个小游戏
+
+游戏放在 `games/<名字>/`，单文件最好（HTML/CSS/JS 全内联），这样没有构建、没有依赖：
+
+1. 建目录 `games/你的游戏/`，把 `index.html` 和素材放进去，**入口文件名必须是 `index.html`**，地址才是 `/games/你的游戏/`
+2. 页面 `<head>` 补 `description`、`canonical`、`og:*`，参照 `games/phoebe-2048/index.html`
+3. 页面里留一个回博客的入口，否则用户进去就出不来：
+   ```html
+   <a class="blog-back" href="../../index.html">← 回到听原的博客</a>
+   ```
+4. 首页 `</main>` 前加一块 `.game-card`，缩略图建议压到 480px 宽的 WebP（`games/phoebe-2048/preview-small.webp` 是 15KB）
+5. 全站页脚的「游戏」入口指向最常用的那个；`sitemap.xml` 加一条 `<url>`
+
+游戏页不继承博客的 CSS，样式自带，所以主题切换、进度条那些不会出现在游戏里——这是故意的，游戏要保持自己的画面。
 
 ## 每页都有的东西
 

@@ -46,6 +46,7 @@ $shots = @(
   @{ url = 'about.html';                            file = 'about.png';       w = 1280; h = 1450 },
   @{ url = 'posts/android-ai-image-studio.html';    file = 'post-android.png'; w = 1280; h = 1400 },
   @{ url = 'posts/text-recognition-clicker.html';   file = 'post-ocr.png';    w = 1280; h = 1400 },
+  @{ url = 'games/phoebe-2048/';                    file = 'game.png';        w = 1280; h = 1000 },
   @{ url = 'index.html';                            file = 'mobile.png';      w = 500;  h = 1000 }
 )
 
