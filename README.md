@@ -191,10 +191,14 @@ document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
 
 音效是采样，不是合成振荡器：
 
-- `assets/sfx-merge.wav` —— 合并时播放，`playbackRate` 跟着合并后的数值升调（4 约 1.06 倍速，2048 约 1.65 倍速），越合越尖
-- `assets/sfx-win.wav` —— 达成 2048 时播放，260 ms 后再叠一层 1.26 倍速的弱音
+- `assets/sfx-merge.wav` —— 合并时播放，0.38 秒的短截，`playbackRate` 跟着合并后的数值升调（4 约 1.06 倍速，2048 约 1.65 倍速），越合越尖
+- `assets/sfx-win.wav` —— 达成 2048 时播放，完整一句 3.45 秒，260 ms 后再叠一层 1.26 倍速的弱音
 
-两个文件都是本项目自己合成的（TTS + 变调 + 啾声 + 混响），没有采样任何现成音频。生成脚本在项目根的 `media/make_audio.py`。
+素材来源：`media/audio/菲比啾比_爱给网_aigei_com.mp4`（爱给网下载，3.55 秒，1080×1080 带画面）。用 ffmpeg 抽出音轨后，按包络切成两个音效，脚本是 `media/make_sfx_from_ref.py`。
+
+> 之前那版是自己用 TTS + 合成器做的（`media/make_audio.py`），听起来电音味重，已经弃用，文件还留在 `media/audio/feibi-jiubi*.wav` 备查。
+
+试听页：`media/audition.html`（在 `media/` 目录起个 http 服务就能听，里面有几个候选截取段）。
 
 方块视觉：每块有顶部高光和内圈描边（`::before` / `::after`），128 以上右上角出现蓝色十字发卡，2048 和更高数值的紫色块带呼吸光圈（`glowPulse`）。
 
