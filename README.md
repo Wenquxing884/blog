@@ -178,8 +178,8 @@ document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
    <a class="btn back-to-blog" href="../../index.html">← 博客</a>
    <a class="blog-back" href="../../index.html">← 回到听原的博客</a>
    ```
-4. 首页 `</main>` 前加一块 `.game-card`，缩略图建议压到 480px 宽的 WebP（`games/phoebe-2048/preview-small.webp` 是 15KB）
-5. 顶部导航 `nav-links` 里加一项 `2048`（指向 `games/phoebe-2048/`），全站页脚也加一个「游戏」入口；`sitemap.xml` 加一条 `<url>`
+4. 顶部导航 `nav-links` 里加一项 `2048`（指向 `games/phoebe-2048/`），全站页脚也加一个「游戏」入口；`sitemap.xml` 加一条 `<url>`
+5. **首页不放游戏卡片**。入口就是导航和页脚两处，首页保持纯文章列表
 
 导航在 420px 以下会自动收紧：间距和字号变小，头像隐藏（「关于」链接还在，不影响导航），这样四个链接也塞得下 360px 宽的屏幕。
 
