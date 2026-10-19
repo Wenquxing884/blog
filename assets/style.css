@@ -597,6 +597,19 @@ footer {
   .about-head .hero-avatar { width: 76px; height: 76px; }
 }
 
+/* 导航有四个链接后，420px 以下开始收紧：先收间距和字号，再让头像让位 */
+@media (max-width: 420px) {
+  .nav-inner { padding: 10px 14px; gap: 10px; }
+  .nav-links { gap: 11px; font-size: 13px; }
+  .nav-links a::after { bottom: -3px; }
+  .nav-avatar { display: none; }
+  .brand { font-size: 16px; }
+}
+
+@media (max-width: 340px) {
+  .nav-links { gap: 9px; font-size: 12.5px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
 }

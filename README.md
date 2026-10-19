@@ -173,12 +173,15 @@ document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
 
 1. 建目录 `games/你的游戏/`，把 `index.html` 和素材放进去，**入口文件名必须是 `index.html`**，地址才是 `/games/你的游戏/`
 2. 页面 `<head>` 补 `description`、`canonical`、`og:*`，参照 `games/phoebe-2048/index.html`
-3. 页面里留一个回博客的入口，否则用户进去就出不来：
+3. 页面里留两个回博客的入口，否则用户进去就出不来：工具栏里一个按钮，页脚一个链接
    ```html
+   <a class="btn back-to-blog" href="../../index.html">← 博客</a>
    <a class="blog-back" href="../../index.html">← 回到听原的博客</a>
    ```
 4. 首页 `</main>` 前加一块 `.game-card`，缩略图建议压到 480px 宽的 WebP（`games/phoebe-2048/preview-small.webp` 是 15KB）
-5. 全站页脚的「游戏」入口指向最常用的那个；`sitemap.xml` 加一条 `<url>`
+5. 顶部导航 `nav-links` 里加一项 `2048`（指向 `games/phoebe-2048/`），全站页脚也加一个「游戏」入口；`sitemap.xml` 加一条 `<url>`
+
+导航在 420px 以下会自动收紧：间距和字号变小，头像隐藏（「关于」链接还在，不影响导航），这样四个链接也塞得下 360px 宽的屏幕。
 
 游戏页不继承博客的 CSS，样式自带，所以主题切换、进度条那些不会出现在游戏里——这是故意的，游戏要保持自己的画面。
 
