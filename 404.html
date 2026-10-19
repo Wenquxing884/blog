@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#FEF8E8" id="theme-color">
+<meta name="author" content="听原">
+<script>/* 首屏前应用主题，避免深色模式闪白 */
+(function(){try{var t=localStorage.getItem('yg-blog-theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
+</script>
+<title>页面走丢了 · 听原</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/img/favicon.png" type="image/png">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">跳到正文</a>
+<div class="progress" aria-hidden="true"></div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html"><span class="brand-name">听原<i>.</i></span></a>
+    <div class="nav-links">
+      <a href="index.html">首页</a>
+      <a href="archive.html">归档</a>
+      <a href="about.html">关于</a>
+    </div>
+    <a class="nav-avatar" href="about.html" aria-label="关于我">
+      <img src="assets/img/avatar.webp" alt="" width="34" height="34">
+    </a>
+    <button class="theme-btn" type="button" aria-label="切换主题">☀</button>
+  </div>
+</nav>
+
+<main class="wrap" id="main">
+  <header class="hero" style="padding: 96px 0 40px;">
+    <p class="eyebrow">404 · Not Found</p>
+    <h1>这页被子<em>盖住</em>了。</h1>
+    <p class="lede">
+      地址不对，或者它已经被我删了。要不回首页看看？
+    </p>
+    <div class="hero-actions">
+      <a class="btn" href="index.html">回到首页 →</a>
+      <a class="btn ghost" href="archive.html">翻归档</a>
+    </div>
+  </header>
+
+  <div class="section-head">
+    <h2>你可能想找</h2>
+    <div class="rule"></div>
+    <span class="count">4 篇</span>
+  </div>
+
+  <div class="post-list">
+    <a class="card" href="posts/android-ai-image-studio.html">
+      <div class="card-meta">
+        <time datetime="2026-10-19">2026-10-19</time>
+        <span class="dot">·</span><span>技术</span>
+      </div>
+      <h3>给安卓做一个 AI 绘图客户端：文生图容易，图生图才是坑</h3>
+      <p>用 Java 写一个安卓 AI 绘图客户端，文生图半天跑通，图生图靠五级降级策略才稳住。</p>
+    </a>
+    <a class="card" href="posts/hello-world.html">
+      <div class="card-meta">
+        <time datetime="2026-10-18">2026-10-18</time>
+        <span class="dot">·</span><span>随笔</span>
+      </div>
+      <h3>从零开始：我为什么又开了一个博客</h3>
+      <p>这是本站的第一篇，同时也是写作模板。为什么在短视频时代还值得拥有一个自己的域名。</p>
+    </a>
+    <a class="card" href="posts/text-recognition-clicker.html">
+      <div class="card-meta">
+        <time datetime="2026-10-17">2026-10-17</time>
+        <span class="dot">·</span><span>技术</span>
+      </div>
+      <h3>屏幕 OCR 加自动点击：把重复操作交给脚本</h3>
+      <p>用 PaddleOCR 识别屏幕文字并自动点击，一套能停、能暂停、不会失控的自动化脚本。</p>
+    </a>
+    <a class="card" href="posts/build-with-zero-deps.html">
+      <div class="card-meta">
+        <time datetime="2026-10-16">2026-10-16</time>
+        <span class="dot">·</span><span>技术</span>
+      </div>
+      <h3>零依赖静态站：三个文件撑起一个博客</h3>
+      <p>不装 Node、不跑构建。一个 HTML、一个 CSS、一个 JS，能部署到任何地方，十年后还能打开。</p>
+    </a>
+  </div>
+</main>
+
+<footer>
+  <div class="foot-inner">
+    <img class="foot-avatar" src="assets/img/avatar.webp" alt="" width="22" height="22" loading="lazy" decoding="async">
+    <span>© 2026 听原 · 用 HTML 手写</span>
+    <span class="spacer"></span>
+    <a href="archive.html">归档</a>
+    <a href="about.html">关于</a>
+    <a href="feed.xml">RSS</a>
+    <a href="https://github.com/Wenquxing884" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</footer>
+
+<button class="to-top" type="button" aria-label="回到顶部">↑</button>
+<script src="assets/main.js"></script>
+</body>
+</html>

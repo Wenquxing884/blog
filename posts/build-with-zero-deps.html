@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#FEF8E8" id="theme-color">
+<meta name="author" content="听原">
+<script>/* 首屏前应用主题，避免深色模式闪白 */
+(function(){try{var t=localStorage.getItem('yg-blog-theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
+</script>
+<title>零依赖静态站：三个文件撑起一个博客 · 听原</title>
+<meta name="description" content="不装 Node、不跑构建，用三个文件做一个能活十年的博客。">
+<!-- Open Graph / 社交分享预览 -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="听原的博客">
+<meta property="og:title" content="零依赖静态站：三个文件撑起一个博客 · 听原">
+<meta property="og:description" content="不装 Node、不跑构建，用三个文件做一个能活十年的博客。">
+<meta property="og:url" content="https://wqxapi.loc.cc/posts/build-with-zero-deps.html">
+<meta property="og:image" content="https://wqxapi.loc.cc/assets/img/og-cover.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="听原的博客 · 奶油底色上的手写博客封面">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="零依赖静态站：三个文件撑起一个博客 · 听原">
+<meta name="twitter:description" content="不装 Node、不跑构建，用三个文件做一个能活十年的博客。">
+<meta name="twitter:image" content="https://wqxapi.loc.cc/assets/img/og-cover.png">
+<link rel="alternate" type="application/rss+xml" title="听原的博客" href="https://wqxapi.loc.cc/feed.xml">
+<link rel="canonical" href="https://wqxapi.loc.cc/posts/build-with-zero-deps.html">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "零依赖静态站：三个文件撑起一个博客",
+  "description": "不装 Node、不跑构建，用三个文件做一个能活十年的博客。",
+  "datePublished": "2026-10-16",
+  "dateModified": "2026-10-16",
+  "inLanguage": "zh-CN",
+  "image": "https://wqxapi.loc.cc/assets/img/og-cover.png",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://wqxapi.loc.cc/posts/build-with-zero-deps.html"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "听原",
+    "url": "https://github.com/Wenquxing884"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "听原",
+    "url": "https://github.com/Wenquxing884"
+  },
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "听原的博客",
+    "url": "https://wqxapi.loc.cc/"
+  }
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">跳到正文</a>
+<div class="progress" aria-hidden="true"></div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="../index.html"><span class="brand-name">听原<i>.</i></span></a>
+    <div class="nav-links">
+      <a href="../index.html">首页</a>
+      <a href="../archive.html">归档</a>
+      <a href="../about.html">关于</a>
+    </div>
+    <a class="nav-avatar" href="../about.html" aria-label="关于我">
+      <img src="../assets/img/avatar.webp" alt="" width="34" height="34">
+    </a>
+    <button class="theme-btn" type="button" aria-label="切换主题">☀</button>
+  </div>
+</nav>
+
+<main class="wrap" id="main">
+  <a class="back" href="../index.html">← 返回首页</a>
+
+  <header class="article-head">
+    <h1>零依赖静态站：三个文件撑起一个博客</h1>
+    <div class="article-meta">
+      <img src="../assets/img/avatar.webp" alt="" width="22" height="22">
+      <time datetime="2026-10-16">2026-10-16</time>
+      <span class="dot">·</span><span>技术</span>
+      <span class="dot">·</span><span>约 6 分钟</span>
+    </div>
+  </header>
+
+  <article class="prose">
+    <p>博客最常见的失败方式不是没人看，是<strong>半年后你自己跑不起来它了</strong>。Node 版本变了、主题作者弃坑了、插件冲突了，于是你不想再打开它。</p>
+
+    <p>所以这套方案的前提只有一个：<em>任何浏览器都能直接打开，不需要安装任何东西。</em></p>
+
+    <h2>目录结构</h2>
+
+    <pre><code>blog/
+├── index.html          # 首页：hero + 搜索 + 文章列表
+├── archive.html        # 归档：按年份平铺
+├── about.html          # 关于
+├── posts/
+│   ├── android-ai-image-studio.html
+│   ├── hello-world.html
+│   ├── text-recognition-clicker.html
+│   └── build-with-zero-deps.html
+└── assets/
+    ├── style.css       # 全部样式，明暗双主题
+    └── main.js         # 主题切换 + 进度条 + 回到顶部 + 搜索</code></pre>
+
+    <p>没有 <code>package.json</code>，没有 <code>node_modules</code>，没有构建产物。改完保存，刷新就生效。</p>
+
+    <h2>三处关键实现</h2>
+
+    <h3>1. 主题色用 CSS 变量</h3>
+
+    <p>所有颜色只在 <code>:root</code> 定义一次，深色模式只覆盖变量，不重写规则：</p>
+
+    <pre><code>:root {
+  --paper: #faf7f0;
+  --ink:   #1d1b18;
+  --accent:#a8442c;
+}
+html[data-theme="dark"] {
+  --paper: #131312;
+  --ink:   #ece7dc;
+  --accent:#e39275;
+}</code></pre>
+
+    <p>切换时只改 <code>&lt;html data-theme&gt;</code> 一个属性，全站瞬间换肤。</p>
+
+    <h3>2. 排版宽度控制在 70 个字符以内</h3>
+
+    <p>正文容器 <code>max-width: 780px</code>，中文一行约 35–40 字。超过这个宽度，眼睛回行会丢位置。这不是审美问题，是生理问题。</p>
+
+    <h3>3. 字体分两套</h3>
+
+    <ul>
+      <li>标题用衬线（宋体系），有分量、有停顿感；</li>
+      <li>正文用系统无衬线，小字号下更清楚；</li>
+      <li>代码用等宽，数字用 <code>font-variant-numeric: tabular-nums</code> 对齐。</li>
+    </ul>
+
+    <h2>部署：三条路，都免费</h2>
+
+    <table>
+      <thead>
+        <tr><th>方式</th><th>操作</th><th>适合</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Cloudflare Pages</td><td>连 Git 仓库，构建命令留空，输出目录填 <code>/</code></td><td>要自定义域名 + 全球加速</td></tr>
+        <tr><td>GitHub Pages</td><td>推到仓库，Settings → Pages 选分支根目录</td><td>最省事，够用</td></tr>
+        <tr><td>Vercel</td><td>导入仓库，框架选 Other</td><td>以后想加服务端函数</td></tr>
+      </tbody>
+    </table>
+
+    <p>三个都支持绑定自己的域名并自动签发 HTTPS 证书。买域名的钱一年几十块，是这件事里唯一的花费。</p>
+
+    <h2>加一篇新文章的流程</h2>
+
+    <ol>
+      <li>复制 <code>posts/hello-world.html</code>，改名，比如 <code>posts/my-note.html</code>。</li>
+      <li>改 <code>&lt;title&gt;</code>、<code>&lt;h1&gt;</code>、<code>&lt;time&gt;</code>、正文。</li>
+      <li>在 <code>index.html</code> 里复制一张 <code>.card</code>，改链接和摘要。</li>
+      <li>在 <code>archive.html</code> 里加一行。</li>
+    </ol>
+
+    <p>熟练之后一篇 3 分钟。嫌烦的话，写个十几行的脚本自动生成卡片，但先别急——等你写到第 20 篇再说。</p>
+
+    <blockquote>
+      <p>工具的价值在于让你忘记它。一个需要维护的博客，最终会变成一份需要维护的负担。</p>
+    </blockquote>
+  </article>
+
+  <div class="article-foot">
+    <a href="text-recognition-clicker.html">← 上一篇：屏幕 OCR 加自动点击</a>
+  </div>
+</main>
+
+<footer>
+  <div class="foot-inner">
+    <img class="foot-avatar" src="../assets/img/avatar.webp" alt="" width="22" height="22" loading="lazy" decoding="async">
+    <span>© 2026 听原 · 用 HTML 手写</span>
+    <span class="spacer"></span>
+    <a href="../archive.html">归档</a>
+    <a href="../about.html">关于</a>
+    <a href="../feed.xml">RSS</a>
+    <a href="https://github.com/Wenquxing884" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</footer>
+
+<button class="to-top" type="button" aria-label="回到顶部">↑</button>
+<script src="../assets/main.js"></script>
+</body>
+</html>

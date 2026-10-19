@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#FEF8E8" id="theme-color">
+<meta name="author" content="听原">
+<script>/* 首屏前应用主题，避免深色模式闪白 */
+(function(){try{var t=localStorage.getItem('yg-blog-theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
+</script>
+<title>归档 · 听原</title>
+<link rel="icon" href="assets/img/favicon.png" type="image/png">
+<!-- Open Graph / 社交分享预览 -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="听原的博客">
+<meta property="og:title" content="归档 · 听原">
+<meta property="og:description" content="写 Android、Python 与自动化，也写想明白的道理。">
+<meta property="og:url" content="https://wqxapi.loc.cc/archive.html">
+<meta property="og:image" content="https://wqxapi.loc.cc/assets/img/og-cover.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="听原的博客 · 奶油底色上的手写博客封面">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="归档 · 听原">
+<meta name="twitter:description" content="写 Android、Python 与自动化，也写想明白的道理。">
+<meta name="twitter:image" content="https://wqxapi.loc.cc/assets/img/og-cover.png">
+<link rel="alternate" type="application/rss+xml" title="听原的博客" href="https://wqxapi.loc.cc/feed.xml">
+<link rel="canonical" href="https://wqxapi.loc.cc/archive.html">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">跳到正文</a>
+<div class="progress" aria-hidden="true"></div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html"><span class="brand-name">听原<i>.</i></span></a>
+    <div class="nav-links">
+      <a href="index.html">首页</a>
+      <a href="archive.html" aria-current="page">归档</a>
+      <a href="about.html">关于</a>
+    </div>
+    <a class="nav-avatar" href="about.html" aria-label="关于我">
+      <img src="assets/img/avatar.webp" alt="" width="34" height="34">
+    </a>
+    <button class="theme-btn" type="button" aria-label="切换主题">☀</button>
+  </div>
+</nav>
+
+<main class="wrap" id="main">
+  <header class="hero" style="padding: 56px 0 10px;">
+    <p class="eyebrow">Archive</p>
+    <h1 style="font-size: clamp(26px, 4.4vw, 34px);">全部文章</h1>
+    <p class="lede" style="margin-bottom: 8px;">按时间倒序。共 4 篇。</p>
+  </header>
+
+  <h2 class="year">2026</h2>
+
+  <div class="archive-item">
+    <time datetime="2026-10-19">10-19</time>
+    <a href="posts/android-ai-image-studio.html">给安卓做一个 AI 绘图客户端：文生图容易，图生图才是坑</a>
+    <span class="arrow">→</span>
+  </div>
+  <div class="archive-item">
+    <time datetime="2026-10-18">10-18</time>
+    <a href="posts/hello-world.html">从零开始：我为什么又开了一个博客</a>
+    <span class="arrow">→</span>
+  </div>
+  <div class="archive-item">
+    <time datetime="2026-10-17">10-17</time>
+    <a href="posts/text-recognition-clicker.html">屏幕 OCR 加自动点击：把重复操作交给脚本</a>
+    <span class="arrow">→</span>
+  </div>
+  <div class="archive-item">
+    <time datetime="2026-10-16">10-16</time>
+    <a href="posts/build-with-zero-deps.html">零依赖静态站：三个文件撑起一个博客</a>
+    <span class="arrow">→</span>
+  </div>
+</main>
+
+<footer>
+  <div class="foot-inner">
+    <img class="foot-avatar" src="assets/img/avatar.webp" alt="" width="22" height="22" loading="lazy" decoding="async">
+    <span>© 2026 听原 · 用 HTML 手写</span>
+    <span class="spacer"></span>
+    <a href="archive.html">归档</a>
+    <a href="about.html">关于</a>
+    <a href="feed.xml">RSS</a>
+    <a href="https://github.com/Wenquxing884" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</footer>
+
+<button class="to-top" type="button" aria-label="回到顶部">↑</button>
+<script src="assets/main.js"></script>
+</body>
+</html>

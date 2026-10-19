@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>听原的博客</title>
+  <link>https://wqxapi.loc.cc/</link>
+  <description>写 Android、Python 与自动化，也写想明白的道理。</description>
+  <language>zh-CN</language>
+  <lastBuildDate>Mon, 19 Oct 2026 01:00:00 +0800</lastBuildDate>
+  <atom:link href="https://wqxapi.loc.cc/feed.xml" rel="self" type="application/rss+xml"/>
+  <item>
+    <title>给安卓做一个 AI 绘图客户端：文生图容易，图生图才是坑</title>
+    <link>https://wqxapi.loc.cc/posts/android-ai-image-studio.html</link>
+    <guid isPermaLink="true">https://wqxapi.loc.cc/posts/android-ai-image-studio.html</guid>
+    <pubDate>Mon, 19 Oct 2026 01:00:00 +0800</pubDate>
+    <description>用 Java 写一个安卓 AI 绘图客户端，文生图半天跑通，图生图靠五级降级策略才稳住。</description>
+  </item>
+  <item>
+    <title>从零开始：我为什么又开了一个博客</title>
+    <link>https://wqxapi.loc.cc/posts/hello-world.html</link>
+    <guid isPermaLink="true">https://wqxapi.loc.cc/posts/hello-world.html</guid>
+    <pubDate>Sun, 18 Oct 2026 01:00:00 +0800</pubDate>
+    <description>这是本站的第一篇，同时也是写作模板。为什么在短视频时代还值得拥有一个自己的域名。</description>
+  </item>
+  <item>
+    <title>屏幕 OCR 加自动点击：把重复操作交给脚本</title>
+    <link>https://wqxapi.loc.cc/posts/text-recognition-clicker.html</link>
+    <guid isPermaLink="true">https://wqxapi.loc.cc/posts/text-recognition-clicker.html</guid>
+    <pubDate>Sat, 17 Oct 2026 01:00:00 +0800</pubDate>
+    <description>用 PaddleOCR 识别屏幕文字并自动点击，一套能停、能暂停、不会失控的自动化脚本。</description>
+  </item>
+  <item>
+    <title>零依赖静态站：三个文件撑起一个博客</title>
+    <link>https://wqxapi.loc.cc/posts/build-with-zero-deps.html</link>
+    <guid isPermaLink="true">https://wqxapi.loc.cc/posts/build-with-zero-deps.html</guid>
+    <pubDate>Fri, 16 Oct 2026 01:00:00 +0800</pubDate>
+    <description>不装 Node、不跑构建。一个 HTML、一个 CSS、一个 JS，能部署到任何地方，十年后还能打开。</description>
+  </item>
+</channel>
+</rss>

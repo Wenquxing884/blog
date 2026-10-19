@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#FEF8E8" id="theme-color">
+<meta name="author" content="听原">
+<script>/* 首屏前应用主题，避免深色模式闪白 */
+(function(){try{var t=localStorage.getItem('yg-blog-theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
+</script>
+<title>给安卓做一个 AI 绘图客户端：文生图容易，图生图才是坑 · 听原</title>
+<meta name="description" content="用 Java 写一个安卓 AI 绘图客户端，文生图半天跑通，图生图靠五级降级策略才稳住。">
+<!-- Open Graph / 社交分享预览 -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="听原的博客">
+<meta property="og:title" content="给安卓做一个 AI 绘图客户端：文生图容易，图生图才是坑 · 听原">
+<meta property="og:description" content="用 Java 写一个安卓 AI 绘图客户端，文生图半天跑通，图生图靠五级降级策略才稳住。">
+<meta property="og:url" content="https://wqxapi.loc.cc/posts/android-ai-image-studio.html">
+<meta property="og:image" content="https://wqxapi.loc.cc/assets/img/og-cover.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="听原的博客 · 奶油底色上的手写博客封面">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="给安卓做一个 AI 绘图客户端：文生图容易，图生图才是坑 · 听原">
+<meta name="twitter:description" content="用 Java 写一个安卓 AI 绘图客户端，文生图半天跑通，图生图靠五级降级策略才稳住。">
+<meta name="twitter:image" content="https://wqxapi.loc.cc/assets/img/og-cover.png">
+<link rel="alternate" type="application/rss+xml" title="听原的博客" href="https://wqxapi.loc.cc/feed.xml">
+<link rel="canonical" href="https://wqxapi.loc.cc/posts/android-ai-image-studio.html">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "给安卓做一个 AI 绘图客户端：文生图容易，图生图才是坑",
+  "description": "用 Java 写一个安卓 AI 绘图客户端，文生图半天跑通，图生图靠五级降级策略才稳住。",
+  "datePublished": "2026-10-19",
+  "dateModified": "2026-10-19",
+  "inLanguage": "zh-CN",
+  "image": "https://wqxapi.loc.cc/assets/img/og-cover.png",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://wqxapi.loc.cc/posts/android-ai-image-studio.html"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "听原",
+    "url": "https://github.com/Wenquxing884"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "听原",
+    "url": "https://github.com/Wenquxing884"
+  },
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "听原的博客",
+    "url": "https://wqxapi.loc.cc/"
+  }
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">跳到正文</a>
+<div class="progress" aria-hidden="true"></div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="../index.html"><span class="brand-name">听原<i>.</i></span></a>
+    <div class="nav-links">
+      <a href="../index.html">首页</a>
+      <a href="../archive.html">归档</a>
+      <a href="../about.html">关于</a>
+    </div>
+    <a class="nav-avatar" href="../about.html" aria-label="关于我">
+      <img src="../assets/img/avatar.webp" alt="" width="34" height="34">
+    </a>
+    <button class="theme-btn" type="button" aria-label="切换主题">☀</button>
+  </div>
+</nav>
+
+<main class="wrap" id="main">
+  <a class="back" href="../index.html">← 返回首页</a>
+
+  <header class="article-head">
+    <h1>给安卓做一个 AI 绘图客户端：文生图容易，图生图才是坑</h1>
+    <div class="article-meta">
+      <img src="../assets/img/avatar.webp" alt="" width="22" height="22">
+      <time datetime="2026-10-19">2026-10-19</time>
+      <span class="dot">·</span><span>技术</span>
+      <span class="dot">·</span><span>约 7 分钟</span>
+    </div>
+  </header>
+
+  <article class="prose">
+    <p>先说结论：文生图半天能跑通，图生图要花一周，剩下的时间全在处理「这家 API 和那家 API 不一样」。</p>
+
+    <p>这个 App 叫 <a href="https://github.com/Wenquxing884/Android-AI-Image-Studio" target="_blank" rel="noopener">Android-AI-Image-Studio</a>，Java 写的，接任何兼容 OpenAI 格式的绘图接口。下面是我做完之后觉得值得记下来的部分。</p>
+
+    <h2>为什么自己写一个</h2>
+
+    <p>三个理由凑一起就够开工了：</p>
+
+    <ul>
+      <li>官方 App 在国内基本用不上，网页版在手机上操作难受；</li>
+      <li>我有自己的中转 API，不想每次都开浏览器粘 key；</li>
+      <li>想做成能存历史、能反复改提示词的工作流，而不是一次性网页。</li>
+    </ul>
+
+    <h2>结构：三层就够</h2>
+
+    <p>技术栈没有花活：Java + AndroidX，页面用 Navigation Component 串，网络 OkHttp 4，JSON 用 Gson，图片交给 Glide。minSdk 定在 24（Android 7.0）——再往下要处理一堆兼容，收益不值。</p>
+
+    <p>分三层：</p>
+
+    <ul>
+      <li><strong>UI</strong>：对话页（Fragment）、历史页、设置页；</li>
+      <li><strong>网络</strong>：一个 <code>ApiClient</code> 封装 OkHttp，一个 <code>Repository</code> 管请求和重试；</li>
+      <li><strong>存储</strong>：会话用 Gson 序列化后落本地文件，不做数据库。</li>
+    </ul>
+
+    <p>不引 Room 是因为一张表就够，JSON 文件更好调试——出问题时能直接打开看，而不是去翻 SQLite。</p>
+
+    <h2>文生图：一条请求的事</h2>
+
+    <p><code>POST /v1/images/generations</code>，body 里三个关键字段：<code>prompt</code>、<code>size</code>、<code>quality</code>（或 <code>n</code>）。响应有两种形态，得都处理：</p>
+
+    <ul>
+      <li><code>b64_json</code>：直接 base64 解码成 Bitmap；</li>
+      <li><code>url</code>：下载后交给 Glide 缓存，顺便存一份本地路径。</li>
+    </ul>
+
+    <pre><code>RequestBody body = RequestBody.create(json, JSON);
+Request req = new Request.Builder()
+    .url(baseUrl + "/v1/images/generations")
+    .addHeader("Authorization", "Bearer " + apiKey)
+    .post(body)
+    .build();</code></pre>
+
+    <p>真正的坑在<strong>超时</strong>。生图不是秒回，默认 10 秒必挂。我把 connect 设 30 秒、read 设 120 秒，并且给绘图请求单独一个 <code>OkHttpClient</code> 实例——别跟普通请求共用连接池和超时配置。</p>
+
+    <h2>图生图：为什么要五级降级</h2>
+
+    <p>文生图各家的字段基本一致，图生图不是。同样是「上传一张图让模型改」，实际差异能列一页：</p>
+
+    <table>
+      <thead><tr><th>差异点</th><th>表现</th></tr></thead>
+      <tbody>
+        <tr><td>请求格式</td><td>有的只吃 <code>multipart/form-data</code>，有的要求 JSON 里塞 base64</td></tr>
+        <tr><td>端点</td><td>有的在 <code>/images/edits</code>，有的塞进 <code>/chat/completions</code> 走多模态</td></tr>
+        <tr><td>遮罩</td><td>有的必须传 <code>mask</code>，有的传了就报错</td></tr>
+        <tr><td>模型名</td><td>同一家不同版本对 <code>model</code> 的取值挑剔</td></tr>
+        <tr><td>返回</td><td>这次给 <code>url</code>，下次给 <code>b64_json</code></td></tr>
+      </tbody>
+    </table>
+
+    <p>所以我没写「判断是哪家 API」的分支——那种代码三个月后自己都看不懂。改成<strong>策略链</strong>：把每次尝试抽象成一个 strategy，按顺序试，第一个成功就停，全失败才报错。</p>
+
+    <pre><code>for (Strategy s : strategies) {
+    try {
+        Result r = s.execute(image, prompt, config);
+        if (r != null) return r;          // 成功即停
+    } catch (ApiException e) {
+        log("strategy " + s.name() + " failed: " + e.code());
+        // 继续下一个
+    }
+}
+throw new AllStrategiesFailedException();</code></pre>
+
+    <p>五级降级的方向大致是：标准 multipart → 去掉 mask → 换 JSON + base64 → 换模型名 → 换端点。顺序按「兼容性从高到低」排，越靠前的成功率越高、代价越小。</p>
+
+    <blockquote>
+      <p>关键不是这五步具体是什么，而是每次失败都留下日志。没有日志的降级等于在猜。</p>
+    </blockquote>
+
+    <h2>历史会话：别急着上数据库</h2>
+
+    <p>每个会话存成一个对象：标题、创建时间、消息数组。消息里区分文本和图片，图片只存路径或 URL，不存 base64——存了文件会迅速膨胀到几十 MB，读的时候还卡。</p>
+
+    <p>列表页按时间倒序，点进去恢复上下文，能接着在原来那条对话里继续生成。这个「继续」比想象中重要：改提示词重试是常态，每次都要重开一局会很烦。</p>
+
+    <h2>几个具体决定</h2>
+
+    <ul>
+      <li><strong>设置页全开放</strong>：API 地址、模型、尺寸、质量都能改。写死等于把这个 App 绑死在一家服务上。</li>
+      <li><strong>Glide 管缓存</strong>：生成图动辄 1–4MB，不做磁盘缓存，翻历史就是一场灾难。</li>
+      <li><strong>错误要说人话</strong>：把 HTTP 状态码翻译成「key 无效」「余额不足」「内容被拒」「服务超时」，比抛一个 <code>400</code> 有用得多。</li>
+      <li><strong>MIT 协议开源</strong>：代码在 GitHub 上，Release 里有 APK，想改自己拉。</li>
+    </ul>
+
+    <h2>做完之后</h2>
+
+    <p>最花时间的不是写代码，是挨个试接口、记下谁在哪一步不兼容。这部分工作没有捷径，只能一个个撞。</p>
+
+    <p>如果你也想做一个：先只做文生图，跑通再说。图生图留到你真的需要它的时候——那时候你已经知道自己的 API 支持什么，五级降级可能只需要两级。</p>
+  </article>
+
+  <div class="article-foot">
+    <a href="hello-world.html">下一篇：从零开始 →</a>
+  </div>
+</main>
+
+<footer>
+  <div class="foot-inner">
+    <img class="foot-avatar" src="../assets/img/avatar.webp" alt="" width="22" height="22" loading="lazy" decoding="async">
+    <span>© 2026 听原 · 用 HTML 手写</span>
+    <span class="spacer"></span>
+    <a href="../archive.html">归档</a>
+    <a href="../about.html">关于</a>
+    <a href="../feed.xml">RSS</a>
+    <a href="https://github.com/Wenquxing884" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</footer>
+
+<button class="to-top" type="button" aria-label="回到顶部">↑</button>
+<script src="../assets/main.js"></script>
+</body>
+</html>
