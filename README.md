@@ -32,7 +32,8 @@ blog/
 │   └── main.js             主题切换 / 进度条 / 回到顶部 / 搜索 / 代码复制 / 标题锚点
 ├── games/
 │   ├── jacaranda-corner/   蓝花楹街角（Three.js 微缩景观）
-│   │   └── index.html     场景、照片、背景音乐全部内联
+│   │   ├── index.html     场景、照片内联，街景优先显示
+│   │   └── *.mp3          独立背景音乐，浏览器按需缓冲
 │   └── phoebe-2048/        菲比啾比 2048（单文件游戏）
 │       ├── index.html      游戏本体，HTML/CSS/JS 全内联
 │       ├── assets/phoebe.jpg
@@ -191,11 +192,13 @@ document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
 
 ### 蓝花楹街角
 
-入口为 `games/jacaranda-corner/`，导航和页脚的「3d」均指向此处。源码来自 [Wenquxing884/jacaranda-corner](https://github.com/Wenquxing884/jacaranda-corner)，博客保存其构建后的单文件页面。
+入口为 `games/jacaranda-corner/`，导航和页脚的「3d」均指向此处。源码来自 [Wenquxing884/jacaranda-corner](https://github.com/Wenquxing884/jacaranda-corner)，博客保存其网页版构建产物：HTML 和同目录的带哈希名称 MP3。源码仓库另提供完整内嵌音乐的离线单文件版本。
 
-2026-11-16 同步音乐版：可旋转和缩放街景、切换昼夜、点击花冠落花，并打开海港明信片。街景与明信片都有音乐开关，共享《You Are All I Need》完整音轨，以 28% 音量循环播放。进入页面默认尝试自动播放；若浏览器阻止有声自动播放，会在首次点击、轻触或有效按键交互时重试，也可以直接点击音乐按钮播放。关闭会暂停，再开启可续播；浏览器允许存储时，明确关闭的偏好在刷新后保留，直到主动开启。照片和音频都内嵌在 HTML 中，页面约 6.1 MB，不依赖单独的音频文件或构建服务。是否能在交互前播放声音由浏览器策略决定。
+2026-11-16 同步音乐加载优化版：可旋转和缩放街景、切换昼夜、点击花冠落花，并打开海港明信片。街景与明信片都有音乐开关，共享《You Are All I Need》完整音轨，以 28% 音量循环播放。街景先显示，再独立缓冲音乐并尝试播放；若浏览器阻止有声自动播放，会在首次点击、轻触或有效按键交互时重试，也可以直接点击音乐按钮播放。关闭会暂停，再开启可续播；浏览器允许存储时，明确关闭的偏好在刷新后保留，直到主动开启。HTML 约 1.1 MB，音乐约 3.8 MB；音乐未内联，已保存关闭偏好时不会请求音频。播放使用原生音频缓冲，无须等整首下载完成；是否能在交互前播放声音由浏览器策略决定。
 
-后续同步时，用源码仓库最新的 `dist/index.html` 替换此入口，保留博客专用的 `canonical` 地址与 `../../index.html` 返回链接，再更新 `sitemap.xml` 的修改日期。不要把 `node_modules`、测试缓存或整个源码目录复制进博客。
+更新时在源码仓库运行 `npm run build`，再运行 `npm run sync:blog -- ../blog`。同步脚本保留博客 canonical 和返回链接，并同时复制网页版 HTML 与所引用的 MP3。部署必须包含这两个文件；修改构建产物后需要重新发布到网站服务器。
+
+后续同步使用 `dist-web/` 部署产物，保留博客专用的 `canonical` 地址与 `../../index.html` 返回链接，并更新 `sitemap.xml` 的修改日期。不要把离线版 `dist/index.html`、`node_modules`、测试缓存或整个源码目录复制进博客。
 
 ### 2048 的音效与方块
 
