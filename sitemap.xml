@@ -41,8 +41,18 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://wqxapi.loc.cc/3d/</loc>
+    <lastmod>2026-11-17</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://wqxapi.loc.cc/games/jacaranda-corner/</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-17</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://wqxapi.loc.cc/games/seasons-cats/</loc>
+    <lastmod>2026-11-17</lastmod>
     <priority>0.7</priority>
   </url>
 </urlset>
