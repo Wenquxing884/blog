@@ -31,6 +31,8 @@ blog/
 │   ├── style.css           全部样式（明暗双主题 + 打印样式）
 │   └── main.js             主题切换 / 进度条 / 回到顶部 / 搜索 / 代码复制 / 标题锚点
 ├── games/
+│   ├── jacaranda-corner/   蓝花楹街角（Three.js 微缩景观）
+│   │   └── index.html     场景、照片、背景音乐全部内联
 │   └── phoebe-2048/        菲比啾比 2048（单文件游戏）
 │       ├── index.html      游戏本体，HTML/CSS/JS 全内联
 │       ├── assets/phoebe.jpg
@@ -186,6 +188,14 @@ document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
 导航在 420px 以下会自动收紧：间距和字号变小，头像隐藏（「关于」链接还在，不影响导航），这样四个链接也塞得下 360px 宽的屏幕。
 
 游戏页不继承博客的 CSS，样式自带，所以主题切换、进度条那些不会出现在游戏里——这是故意的，游戏要保持自己的画面。
+
+### 蓝花楹街角
+
+入口为 `games/jacaranda-corner/`，导航和页脚的「3d」均指向此处。源码来自 [Wenquxing884/jacaranda-corner](https://github.com/Wenquxing884/jacaranda-corner)，博客保存其构建后的单文件页面。
+
+2026-11-16 同步音乐版：可旋转和缩放街景、切换昼夜、点击花冠落花，并打开海港明信片。街景与明信片都有音乐开关，共享《You Are All I Need》完整音轨；默认关闭，点击后以 28% 音量循环播放，暂停后可续播。刷新后仍需点击播放。照片和音频都内嵌在 HTML 中，页面约 6.1 MB，不依赖单独的音频文件或构建服务。
+
+后续同步时，用源码仓库最新的 `dist/index.html` 替换此入口，保留博客专用的 `canonical` 地址与 `../../index.html` 返回链接，再更新 `sitemap.xml` 的修改日期。不要把 `node_modules`、测试缓存或整个源码目录复制进博客。
 
 ### 2048 的音效与方块
 
