@@ -1,0 +1,21 @@
+.back-to-gallery {
+  position: fixed;
+  left: 36px;
+  top: 108px;
+  z-index: 12;
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 7px 12px;
+  border: 1px solid #d7b77c4d;
+  border-radius: 999px;
+  background: #14232edd;
+  color: #ead9b7;
+  font: 11px/1.4 "Microsoft YaHei", sans-serif;
+  letter-spacing: .06em;
+  text-decoration: none;
+  backdrop-filter: blur(10px);
+}
+.back-to-gallery:hover { background: #a67d3bdc; color: #fff5dc; }
+.back-to-gallery:focus-visible { outline: 2px solid #f0cc87; outline-offset: 4px; }
+@media (max-width: 760px) { .back-to-gallery { left: 18px; top: 77px; } }

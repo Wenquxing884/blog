@@ -1,0 +1,204 @@
+{
+  "version": 3,
+  "name": "含元殿 · original monumental Tang-inspired hall",
+  "worldPosition": [
+    0,
+    0,
+    -154
+  ],
+  "floorHeight": 9,
+  "body": {
+    "width": 60,
+    "depth": 34,
+    "columnHeight": 13.5,
+    "totalHeight": 36.2
+  },
+  "entrance": {
+    "localZ": 15.5,
+    "width": 12,
+    "height": 8.5
+  },
+  "interior": {
+    "halfWidth": 28.8,
+    "minZ": -15.1,
+    "maxZ": 15.1
+  },
+  "terraces": [
+    {
+      "width": 76,
+      "minZ": -26,
+      "maxZ": 58,
+      "height": 3
+    },
+    {
+      "width": 70,
+      "minZ": -24,
+      "maxZ": 40,
+      "height": 6
+    },
+    {
+      "width": 64,
+      "minZ": -22,
+      "maxZ": 22,
+      "height": 9
+    }
+  ],
+  "stairFlights": [
+    {
+      "startZ": -84,
+      "endZ": -96,
+      "startHeight": 0,
+      "endHeight": 3,
+      "width": 26,
+      "steps": 18
+    },
+    {
+      "startZ": -102,
+      "endZ": -114,
+      "startHeight": 3,
+      "endHeight": 6,
+      "width": 22,
+      "steps": 18
+    },
+    {
+      "startZ": -120,
+      "endZ": -132,
+      "startHeight": 6,
+      "endHeight": 9,
+      "width": 18,
+      "steps": 18
+    }
+  ],
+  "landings": [
+    {
+      "startZ": -96,
+      "endZ": -102,
+      "height": 3,
+      "width": 26
+    },
+    {
+      "startZ": -114,
+      "endZ": -120,
+      "height": 6,
+      "width": 22
+    }
+  ],
+  "ceremonialRampWidth": 4,
+  "localWallColliders": [
+    {
+      "minX": -29.4,
+      "maxX": -28.8,
+      "minZ": -15.8,
+      "maxZ": 15.8
+    },
+    {
+      "minX": 28.8,
+      "maxX": 29.4,
+      "minZ": -15.8,
+      "maxZ": 15.8
+    },
+    {
+      "minX": -29.4,
+      "maxX": 29.4,
+      "minZ": -15.8,
+      "maxZ": -15.2
+    },
+    {
+      "minX": -29.4,
+      "maxX": -6,
+      "minZ": 15.2,
+      "maxZ": 15.8
+    },
+    {
+      "minX": 6,
+      "maxX": 29.4,
+      "minZ": 15.2,
+      "maxZ": 15.8
+    },
+    {
+      "minX": -7.2,
+      "maxX": 7.2,
+      "minZ": -13.4,
+      "maxZ": -7
+    }
+  ],
+  "camera": {
+    "courtyard": {
+      "position": [
+        0,
+        2.1,
+        -76
+      ],
+      "target": [
+        0,
+        21,
+        -154
+      ],
+      "fov": 62
+    },
+    "interior": {
+      "position": [
+        0,
+        10.68,
+        -146
+      ],
+      "target": [
+        0,
+        13,
+        -165
+      ],
+      "fov": 66
+    },
+    "illusionFocus": [
+      0,
+      21,
+      -154
+    ],
+    "illusionFrameWidth": 80,
+    "route": [
+      [
+        0,
+        15,
+        -75
+      ],
+      [
+        0,
+        4.68,
+        -99
+      ],
+      [
+        0,
+        7.68,
+        -117
+      ],
+      [
+        0,
+        10.68,
+        -132
+      ],
+      [
+        0,
+        10.68,
+        -137
+      ]
+    ]
+  },
+  "historical_reconstruction": false,
+  "generator": "scripts/build_palace.py",
+  "source": "assets-source/palace.blend",
+  "assets": {
+    "HIGH": {
+      "model": "/assets/palace.glb",
+      "meshCount": 13,
+      "triangles": 110626,
+      "bytes": 3367300
+    },
+    "LOW": {
+      "model": "/assets/palace-low.glb",
+      "meshCount": 13,
+      "triangles": 24746,
+      "bytes": 1034496
+    }
+  },
+  "lodHint": "Use palace-low.glb for overview beyond 150 m; use palace.glb for close exterior and interior."
+}

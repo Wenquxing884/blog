@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#111c26" />
+    <meta name="description" content="在灯火与暮色之间，走进一座可以自由探索的唐风长安。旋转全城，漫步街市，穿过宫门，进入大殿。" />
+    <title>长安 · 入境 — 唐风城市漫游</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='2' y='2' width='60' height='60' rx='12' fill='%238b3b2c'/%3E%3Cpath d='M13 27L32 15L51 27M17 28H47M21 30V46M32 30V46M43 30V46M14 48H50' stroke='%23f5d6a0' stroke-width='3' fill='none'/%3E%3C/svg%3E" />
+    <script type="module" crossorigin src="./assets/index-TbpxsO1q.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BP3NrG1N.css">
+    <link rel="canonical" href="https://wqxapi.loc.cc/games/changan-walk/" />
+    <link rel="stylesheet" href="./blog.css" />
+  </head>
+  <body>
+    <div id="app">
+      <a class="back-to-gallery" href="../../3d/" aria-label="返回作品集">← 作品集</a>
+      <canvas id="world" aria-label="可以旋转、缩放和自由漫游的长安城三维场景" tabindex="0"></canvas>
+      <div class="vignette" aria-hidden="true"></div>
+
+      <header class="topbar">
+        <a class="brand" href="#" id="brand-home" aria-label="返回全城总览">
+          <span class="seal" aria-hidden="true">长<br />安</span>
+          <span class="brand-type">长安<span class="brand-dot">·</span>入境<small>CHANG’AN, WITHIN</small></span>
+        </a>
+        <div class="edition"><span class="thin-rule"></span> 一座城，一场千年之游 <span class="thin-rule"></span></div>
+        <div class="top-actions">
+          <span class="live-status"><i></i><span id="sky-name">日暮 · 灯初上</span></span>
+          <button class="icon-button" id="sound-btn" title="开启环境声" aria-label="开启环境声" aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path class="sound-wave" d="M15 8c2 2 2 6 0 8m3-11c4 4 4 10 0 14"/><path class="sound-mute" d="m16 9 5 6m0-6-5 6"/></svg>
+          </button>
+          <button class="icon-button" id="fullscreen-btn" title="全屏" aria-label="全屏">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></svg>
+          </button>
+          <button class="icon-button" id="help-btn" title="操作指南" aria-label="操作指南"><span>?</span></button>
+        </div>
+      </header>
+
+      <section class="hero-copy" id="hero-copy">
+        <div class="eyebrow"><span>大唐气象</span><i></i><span>自由探索</span></div>
+        <h1>一城灯火<br /><span>梦回长安</span></h1>
+        <p>越过重重宫阙，走入烟火人间。<br />让千年的距离，只剩一次回眸。</p>
+        <button class="enter-button" data-destination="market"><span>沿长街，入长安</span><span aria-hidden="true">↗</span></button>
+        <div class="hero-caption">唐风艺术化场景 <span>／</span> 第一辑 · 暮色长安</div>
+      </section>
+
+      <aside class="place-indicator" aria-live="polite">
+        <span class="place-index" id="place-index">零一</span>
+        <div><span class="place-kicker" id="place-kicker">俯瞰山河</span><h2 id="place-title">全城总览</h2></div>
+      </aside>
+
+      <div id="landmarks" class="landmarks" aria-label="场景中的可进入地点"></div>
+
+      <aside class="scene-tools" aria-label="场景设置">
+        <button id="illusion-btn" class="tool-button" title="体验平面展开为立体的推拉变焦"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="m12 3 9 5v8l-9 5-9-5V8l9-5Z"/><path d="m3 8 9 5 9-5M12 13v8m0-18v10"/></svg><span>透视幻境</span><i>↗</i></button>
+        <button id="walk-toggle" data-testid="walk-toggle" class="tool-button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="13" cy="4" r="2"/><path d="m9 22 2-8 3 3 1 5m-9-9 3-5h4l3 5 4 1M11 8v6"/></svg><span>步入街巷</span><i>↵</i></button>
+        <div class="time-control"><label for="time-slider"><span id="time-label">酉时</span><span id="time-value">18:20</span></label><div class="time-range"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="12" r="4"/><path d="M12 1v3m0 16v3M1 12h3m16 0h3M4 4l2 2m12 12 2 2M4 20l2-2M18 6l2-2"/></svg><input id="time-slider" data-testid="time-slider" type="range" min="0" max="1" step="0.01" value="0.42" aria-label="从日暮到深夜的光照"/><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M20 15.5A9 9 0 0 1 8.5 4 9 9 0 1 0 20 15.5Z"/></svg></div></div>
+      </aside>
+
+      <aside id="interior-card" class="interior-card" aria-live="polite" hidden><span>正在参观</span><strong id="interior-name"></strong><small id="interior-description"></small></aside>
+      <button id="interact-btn" class="interact-button" data-testid="interact-door" aria-label="开门" hidden><span class="interact-key">E</span><span class="interact-copy"><strong id="interact-action">推门入内</strong><small id="interact-label"></small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M5 21V3h14v18M8 21V5l8-2v18l-8-2Z"/><circle cx="13" cy="12" r=".7"/></svg></button>
+      <div class="walk-hint" id="walk-hint"><span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> 行走</span><i></i><span>拖动环顾 <kbd>E</kbd> 开关门</span><i></i><span><kbd>Shift</kbd> 快行 <kbd>Esc</kbd> 返回总览</span></div>
+      <div class="crosshair" id="crosshair" aria-hidden="true"></div>
+
+      <footer class="bottom-bar">
+        <div class="route-label"><span>游历长安</span><small>CHOOSE YOUR JOURNEY</small></div>
+        <nav class="destination-nav" aria-label="前往地点">
+          <button class="destination active" data-destination="overview" aria-current="location"><span class="destination-number">01</span><span class="destination-name">全城总览<small>THE IMPERIAL CITY</small></span><span class="destination-arrow">↗</span></button>
+          <button class="destination" data-destination="market"><span class="destination-number">02</span><span class="destination-name">灯火长街<small>THE LANTERN STREET</small></span><span class="destination-arrow">↗</span></button>
+          <button class="destination" data-destination="palace"><span class="destination-number">03</span><span class="destination-name">宫阙庭院<small>THE PALACE COURT</small></span><span class="destination-arrow">↗</span></button>
+          <button class="destination" data-destination="interior"><span class="destination-number">04</span><span class="destination-name">步入大殿<small>WITHIN THE GREAT HALL</small></span><span class="destination-arrow">↗</span></button>
+          <button class="destination" data-destination="garden"><span class="destination-number">05</span><span class="destination-name">曲池亭廊<small>THE LAKESIDE GALLERY</small></span><span class="destination-arrow">↗</span></button>
+        </nav>
+        <div class="compass" aria-label="北方向"><div id="compass-needle"><span>N</span><svg viewBox="0 0 32 32"><path d="m16 3 5 23-5-5-5 5Z" fill="currentColor"/></svg></div></div>
+      </footer>
+
+      <div class="overview-hint" id="overview-hint"><span class="mouse-icon"></span> 拖动旋转 <b>·</b> 滚轮缩放 <b>·</b> 点击地标进入</div>
+      <div class="performance" id="performance" aria-hidden="true"></div>
+      <div class="transition-label" id="transition-label" aria-live="polite"><span id="transition-kicker">穿越千年</span><strong id="transition-name">灯火长街</strong><div><i></i></div></div>
+      <div class="toast" id="toast" role="status"></div>
+
+      <div id="loading" class="loading-screen" role="status"><div class="loading-seal">长安</div><div class="loading-title">一城灯火，正为你点亮</div><div class="loading-track"><i id="loading-progress"></i></div><span id="loading-detail">营造宫阙与街巷</span></div>
+
+      <dialog id="help-dialog"><button class="dialog-close icon-button" id="close-help" aria-label="关闭指南">×</button><span class="eyebrow">游历指南</span><h2>把自己，放进长安。</h2><p>从空中俯瞰，到街巷行走，用你的视角探索这座城。</p><div class="help-rows"><div><strong>全城总览</strong><span>拖动旋转 · 滚轮缩放 · 右键拖动平移</span></div><div><strong>自由漫游</strong><span>WASD / 方向键行走 · Shift 快行 · 拖动环顾</span></div><div><strong>推门参观</strong><span>靠近商铺、民居或院门，按 E 或点击提示开关门，然后步行进入；也可以从室内开门离开。</span></div><div><strong>触屏操作</strong><span>总览双指缩放 · 漫游左侧方向键移动、右侧拖动观察，点击门的提示进行交互。</span></div><div><strong>透视幻境</strong><span>在预设视角中，体验平面构图展开为街道纵深</span></div></div><div class="help-note">唐风艺术化场景，建筑与布局为原创设计。商铺与民居可参观一层；塔楼、城楼为外观场景。按 Esc 回到全城总览。</div><button class="enter-button" id="begin-explore"><span>开始游历</span><span>↗</span></button></dialog>
+
+      <div class="touch-pad" id="touch-pad" aria-label="触屏行走控制"><button data-move="forward" aria-label="向前">↑</button><button data-move="left" aria-label="向左">←</button><button data-move="backward" aria-label="向后">↓</button><button data-move="right" aria-label="向右">→</button></div>
+    </div>
+  </body>
+</html>

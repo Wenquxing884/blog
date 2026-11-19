@@ -1,4 +1,4 @@
-/* The 3d shelf shares the blog theme, with room for more projects over time. */
+/* The portfolio shares the blog theme. */
 .gallery-page { min-height: 100svh; display: flex; flex-direction: column; }
 .gallery-page .nav-inner,
 .gallery-page .foot-inner { max-width: 1180px; }
@@ -39,15 +39,9 @@
 .scene-cover { position: relative; aspect-ratio: 8 / 5; overflow: hidden; border-bottom: 1px solid var(--line); }
 .scene-cover-jacaranda { background: #ebe6f0; }
 .scene-cover-cats { background: #0a1b20; }
+.scene-cover-changan { background: #172632; }
 .scene-cover img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s cubic-bezier(.2,.65,.3,1); }
 .scene-card:hover .scene-cover img { transform: scale(1.035); }
-.scene-index {
-  position: absolute; left: 14px; top: 14px;
-  min-width: 32px; padding: 3px 8px; border-radius: 8px;
-  color: #49392f; background: #fffaf0ed;
-  font: 11px/1.6 var(--font-mono); letter-spacing: .04em;
-  box-shadow: 0 2px 8px #0000000a;
-}
 .scene-open {
   position: absolute; right: 14px; bottom: 14px;
   width: 31px; height: 31px; display: grid; place-items: center;

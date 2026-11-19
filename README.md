@@ -11,7 +11,7 @@ blog/
 ├── index.html              首页（hero + 搜索 + 文章卡片列表）
 ├── archive.html            归档（按年份平铺）
 ├── about.html              关于页（GitHub 仓库、邮箱、RSS）
-├── 3d/index.html           小小世界作品集（封面卡片，点击打开各作品）
+├── 3d/index.html           作品集页（保留 /3d/ 地址，封面卡片点击打开各作品）
 ├── 404.html                404 页（GitHub Pages 会自动使用，附推荐入口）
 ├── feed.xml                RSS 2.0 订阅源
 ├── sitemap.xml             站点地图
@@ -31,7 +31,7 @@ blog/
 │   │   ├── og-cover.png    社交分享预览图 1200×630
 │   │   └── projects/      作品集封面（项目实际画面）
 │   ├── style.css           全部样式（明暗双主题 + 打印样式）
-│   ├── three-gallery.css   3d 作品集的网格与封面卡片
+│   ├── three-gallery.css   作品集的网格与封面卡片
 │   └── main.js             主题切换 / 进度条 / 回到顶部 / 搜索 / 代码复制 / 标题锚点
 ├── games/
 │   ├── jacaranda-corner/   蓝花楹街角（Three.js 微缩景观）
@@ -39,6 +39,10 @@ blog/
 │   │   └── *.mp3          独立背景音乐，浏览器按需缓冲
 │   ├── seasons-cats/       四季小猫（星空四季音乐动画）
 │   │   └── index.html     独立播放器与返回作品集入口
+│   ├── changan-walk/       长安 · 入境（唐风城市漫游）
+│   │   ├── index.html     构建入口与返回作品集链接
+│   │   ├── blog.css       作品集返回链接的样式
+│   │   └── assets/        构建脚本、样式与 GLB 宫殿模型
 │   └── phoebe-2048/        菲比啾比 2048（单文件游戏）
 │       ├── index.html      游戏本体，HTML/CSS/JS 全内联
 │       ├── assets/phoebe.jpg
@@ -195,22 +199,22 @@ document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
 
 游戏页不继承博客的 CSS，样式自带，所以主题切换、进度条那些不会出现在游戏里——这是故意的，游戏要保持自己的画面。
 
-### 3d 作品集
+### 作品集
 
-全站导航和页脚的「3d」统一指向 `3d/`，不再直接打开某一件作品。作品集沿用博客的奶油色与深色主题，卡片采用项目实际截图、标题、简短体验说明和整卡链接。大屏每行最多 3 件，宽度小于 1100px 为 2 件，620px 及以下为单列；目前收录蓝花楹街角和四季小猫，新增作品会自动沿网格排列。
+全站导航和页脚的「作品集」指向 `3d/`，收录蓝花楹街角、四季小猫和长安 · 入境。作品集沿用博客的奶油色与深色主题，卡片采用项目实际截图、标题、简短体验说明和整卡链接。1100px 起每行最多 3 件，621–1099px 每行 2 件，620px 及以下为单列。
 
 作品页面继续保留自己的视觉和交互，只在选中卡片后加载场景、动画和音乐。作品集本身只加载封面图，不嵌入运行中的场景。主页仍是文章列表。
 
 新增作品时：
 
-1. 将可部署页面放入 `games/<名字>/index.html`，保留返回 `../../3d/` 的入口。
+1. 将可部署页面放入 `games/<名字>/index.html`，保留返回 `../../3d/`（作品集）的入口。
 2. 从项目实际画面制作 JPEG 封面，保存到 `assets/img/projects/`。
 3. 在 `3d/index.html` 的 `.scene-grid` 中添加一张 `.scene-card`，填写封面、标题、简介与链接，并更新作品数量。
 4. 在 `sitemap.xml` 添加作品地址和修改日期。
 
 ### 蓝花楹街角
 
-入口为 `games/jacaranda-corner/`，由 `3d/` 作品集的「蓝花楹街角」卡片进入。源码来自 [Wenquxing884/jacaranda-corner](https://github.com/Wenquxing884/jacaranda-corner)，博客保存其网页版构建产物：HTML 和同目录的带哈希名称 MP3。源码仓库另提供完整内嵌音乐的离线单文件版本。
+入口为 `games/jacaranda-corner/`，由作品集中的「蓝花楹街角」卡片进入。源码来自 [Wenquxing884/jacaranda-corner](https://github.com/Wenquxing884/jacaranda-corner)，博客保存其网页版构建产物：HTML 和同目录的带哈希名称 MP3。源码仓库另提供完整内嵌音乐的离线单文件版本。
 
 2026-11-16 同步音乐加载优化版：可旋转和缩放街景、切换昼夜、点击花冠落花，并打开海港明信片。街景与明信片都有音乐开关，共享《You Are All I Need》完整音轨，以 28% 音量循环播放。街景先显示，再独立缓冲音乐并尝试播放；若浏览器阻止有声自动播放，会在首次点击、轻触或有效按键交互时重试，也可以直接点击音乐按钮播放。关闭会暂停，再开启可续播；浏览器允许存储时，明确关闭的偏好在刷新后保留，直到主动开启。HTML 约 1.1 MB，音乐约 3.8 MB；音乐未内联，已保存关闭偏好时不会请求音频。播放使用原生音频缓冲，无须等整首下载完成；是否能在交互前播放声音由浏览器策略决定。
 
@@ -220,9 +224,15 @@ document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
 
 ### 四季小猫
 
-入口为 `games/seasons-cats/`，由 `3d/` 作品集的「四季小猫」卡片进入。源码来自 [Wenquxing884/seasons-cats](https://github.com/Wenquxing884/seasons-cats)，以 Canvas 2D 绘制黑白小猫、星空、草地、指针和四季天气；虽然归入「3d」作品栏目，这个项目本身不是 Three.js 场景。
+入口为 `games/seasons-cats/`，由作品集中的「四季小猫」卡片进入。源码来自 [Wenquxing884/seasons-cats](https://github.com/Wenquxing884/seasons-cats)，以 Canvas 2D 绘制黑白小猫、星空、草地、指针和四季天气；这个项目本身不是 Three.js 场景。
 
 动画约 24 秒，播放器保留播放、暂停、进度跳转、循环、音量和全屏控制。独立页面内含音乐和场景代码，进入后点击播放；作品集封面不提前加载播放器或音频。
+
+### 长安 · 入境
+
+从作品集点击「长安 · 入境」进入 `games/changan-walk/`。可旋转俯瞰、切换地点、在街巷中行走和推门参观。模型与脚本使用相对路径，请通过 HTTP 预览。
+
+博客版来自 [changan-walk 的 `4379090` 提交](https://github.com/Wenquxing884/changan-walk/commit/4379090343786e1e89a04a76bf70d17467c9950c)。更新时在长安源码目录运行 `npm ci` 和 `npm run build`，将 `dist/` 的页面和 `assets/` 同步到 `games/changan-walk/`。更新入口时保留该页的 canonical、`./blog.css` 引用与 `../../3d/` 返回链接。
 
 ### 2048 的音效与方块
 
